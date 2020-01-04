@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -exo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+rm db.sqlite3
+venv/bin/python manage.py migrate
