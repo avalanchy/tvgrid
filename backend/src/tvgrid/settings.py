@@ -75,9 +75,13 @@ WSGI_APPLICATION = 'tvgrid.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("TVGRID_DB_NAME", "tvgrid"),
+        "USER": os.environ.get("TVGRID_DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("TVGRID_DB_PASSWORD", "postgres"),
+        "HOST": os.environ.get("TVGRID_DB_HOST", "localhost"),
+        "PORT": os.environ.get("TVGRID_DB_PORT", "5432"),
     }
 }
 
