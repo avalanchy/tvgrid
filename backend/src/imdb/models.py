@@ -100,7 +100,7 @@ class Episode(models.Model):
     parent_title = models.ForeignKey(
         Title,
         on_delete=models.DO_NOTHING,
-        related_name="+",
+        related_name="episodes",
         db_constraint=False,  # IMDb dump contains nonexistent IDs
     )
 
