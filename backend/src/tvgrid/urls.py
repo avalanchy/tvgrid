@@ -16,20 +16,22 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework import routers
 
-import serials.views
+from imdb.endpoints import TitleEndpoint
+
+
+router = routers.DefaultRouter()
+router.register(r"titles", TitleEndpoint)
+
 
 urlpatterns = [
-    # Django
-    path('admin/', admin.site.urls),
-    # Internal
-    path('', serials.views.index, name='index'),
-    path('grid/<str:title_id>', serials.views.grid, name='grid'),
+    path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
 ]
 
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+
+    urlpatterns = [path("__debug__/", include(debug_toolbar.urls)),] + urlpatterns

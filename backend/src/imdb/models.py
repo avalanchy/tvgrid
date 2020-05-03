@@ -8,16 +8,16 @@ class Title(models.Model):
     """
 
     class Type(models.TextChoices):
-        MOVIE = 'movie'
-        SHORT = 'short'
-        TV_EPISODE = 'tvEpisode'
-        TV_MINI_SERIES = 'tvMiniSeries'
-        TV_MOVIE = 'tvMovie'
-        TV_SERIES = 'tvSeries'
-        TV_SHORT = 'tvShort'
-        TV_SPECIAL = 'tvSpecial'
-        VIDEO = 'video'
-        VIDEO_GAME = 'videoGame'
+        MOVIE = "movie"
+        SHORT = "short"
+        TV_EPISODE = "tvEpisode"
+        TV_MINI_SERIES = "tvMiniSeries"
+        TV_MOVIE = "tvMovie"
+        TV_SERIES = "tvSeries"
+        TV_SHORT = "tvShort"
+        TV_SPECIAL = "tvSpecial"
+        VIDEO = "video"
+        VIDEO_GAME = "videoGame"
 
     id = models.CharField(
         max_length=255,
@@ -43,8 +43,7 @@ class Title(models.Model):
     )
 
     original_title = models.CharField(
-        max_length=500,
-        help_text="Original title, in the original language.",
+        max_length=500, help_text="Original title, in the original language.",
     )
 
     is_adult = models.BooleanField(help_text="Non-adult/adult title.")
@@ -90,6 +89,9 @@ class Episode(models.Model):
     Source: title.episode.tsv.gz
     """
 
+    class Meta:
+        ordering = ("season_number", "episode_number")
+
     title = models.OneToOneField(
         Title,
         help_text="Alphanumeric identifier of episode.",
@@ -105,9 +107,7 @@ class Episode(models.Model):
     )
 
     season_number = models.IntegerField(
-        help_text="Season number the episode belongs to.",
-        null=True,
-        blank=True,
+        help_text="Season number the episode belongs to.", null=True, blank=True,
     )
 
     episode_number = models.IntegerField(
@@ -117,7 +117,9 @@ class Episode(models.Model):
     )
 
     def __str__(self):
-        return f"s{self.season_number or 0}e{self.episode_number or 0} ({self.title_id})"
+        return (
+            f"s{self.season_number or 0}e{self.episode_number or 0} ({self.title_id})"
+        )
 
 
 class Rating(models.Model):
@@ -125,6 +127,7 @@ class Rating(models.Model):
 
     Source: title.ratings.tsv.gz
     """
+
     title = models.OneToOneField(
         Title,
         help_text="Alphanumeric identifier of episode.",
