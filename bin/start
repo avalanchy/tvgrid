@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+# start third party services
+docker-compose up -d
+
+# stop third part services when CTRL+C is pressed
+on_keyboard_interrupt() {
+  docker-compose stop
+}
+trap on_keyboard_interrupt SIGINT
+
+# start tvgrid backend service
+backend/bin/serve

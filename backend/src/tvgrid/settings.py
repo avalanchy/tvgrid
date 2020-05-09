@@ -12,8 +12,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import environ
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# TVGrid root dir
+ROOT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
+
+# Init Django-environ
+env = environ.Env()
+environ.Env.read_env(os.path.join(ROOT_DIR, ".env"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,8 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "l*=&gk$5&cb%)c-uq%zdohqw4^os8(5d3o!cj*tfdpvyi+y0(8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = env.bool("DEBUG")
 ALLOWED_HOSTS = []
 
 
@@ -84,11 +92,11 @@ WSGI_APPLICATION = "tvgrid.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("TVGRID_DB_NAME", "tvgrid"),
-        "USER": os.environ.get("TVGRID_DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("TVGRID_DB_PASSWORD", "postgres"),
-        "HOST": os.environ.get("TVGRID_DB_HOST", "localhost"),
-        "PORT": os.environ.get("TVGRID_DB_PORT", "5432"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
     }
 }
 
@@ -97,9 +105,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},

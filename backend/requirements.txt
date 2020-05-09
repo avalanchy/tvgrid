@@ -1,6 +1,7 @@
 django
-psycopg2
+psycopg2-binary
 requests
 black
 django-debug-toolbar
 djangorestframework
+django-environ
