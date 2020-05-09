@@ -1,7 +1,20 @@
+# backend framework
 django
-psycopg2-binary
-requests
-black
-django-debug-toolbar
+
+# backend framework extension
 djangorestframework
+
+# backend .env file parser
 django-environ
+
+# postgres driver
+psycopg2-binary
+
+# framework toolbelt
+django-debug-toolbar
+
+# HTTP library
+requests
+
+# code autoformatter
+black
