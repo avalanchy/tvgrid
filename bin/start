@@ -6,7 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 # start third party services
 docker-compose up -d
 
-# stop third part services when CTRL+C is pressed
+# stop third-party services when CTRL+C is pressed
 on_keyboard_interrupt() {
   docker-compose stop
 }
