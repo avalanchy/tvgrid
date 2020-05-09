@@ -21,3 +21,6 @@ createdb ${POSTGRES_DB}
 
 # run migrations
 venv/bin/python src/manage.py migrate
+
+# fetch and load IMDb's data dump
+venv/bin/python src/manage.py imdb_dataload

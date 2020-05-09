@@ -54,7 +54,7 @@ class Command(BaseCommand):
             self.stdout.write(f"Downloading {url}...")
             filepath = self.download_file(url)
 
-            self.stdout.write(f"Deleting all {model.__name__}...")
+            self.stdout.write(f"Deleting all {model.__name__}s...")
             model.objects.all().delete()
 
             self.stdout.write(f"Copying {filepath} to {model.__name__}...")
