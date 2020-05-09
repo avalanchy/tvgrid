@@ -6,7 +6,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - 5432:${POSTGRES_PORT}
     environment:
       - POSTGRES_DB
       - POSTGRES_USER
@@ -15,4 +15,4 @@ services:
   adminer:
     image: adminer
     ports:
-      - 8080:8080
+      - 8080:${ADMINER_PORT}

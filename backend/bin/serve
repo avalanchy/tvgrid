@@ -3,7 +3,14 @@
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
+# Create Python virtualenv
 python3.8 -m venv venv
-venv/bin/pip install -U pip setuptools -r requirements.txt
 
+# Install package manager packages
+venv/bin/pip install -U pip setuptools wheel
+
+# Install project packages
+venv/bin/pip install -U -r requirements.txt
+
+# Start the backend server
 venv/bin/python src/manage.py runserver
