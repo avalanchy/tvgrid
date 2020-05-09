@@ -22,7 +22,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
 
 # Init Django-environ
 env = environ.Env()
-environ.Env.read_env(os.path.join(ROOT_DIR, ".env"))
+env.read_env(os.path.join(ROOT_DIR, ".env"))
 
 
 # Quick-start development settings - unsuitable for production
