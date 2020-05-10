@@ -4,7 +4,7 @@ set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 # define env vars
-source ../.env
+source .env
 export PGUSER=${POSTGRES_USER}
 export PGPASSWORD=${POSTGRES_PASSWORD}
 export PGHOST=${POSTGRES_HOST}

@@ -3,13 +3,22 @@
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
+# start third party services
+docker-compose up -d
+
+# stop third-party services when CTRL+C is pressed
+on_keyboard_interrupt() {
+  docker-compose stop
+}
+trap on_keyboard_interrupt SIGINT
+
 # Create Python virtualenv
 python3.8 -m venv venv
 
 # Install package manager packages
 venv/bin/pip install -U pip setuptools wheel
 
-# Install project packages
+# Install the backend pip packages
 venv/bin/pip install -U -r requirements.txt
 
 # Start the backend development server
