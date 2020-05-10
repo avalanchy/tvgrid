@@ -12,5 +12,5 @@ venv/bin/pip install -U pip setuptools wheel
 # Install project packages
 venv/bin/pip install -U -r requirements.txt
 
-# Start the backend server
+# Start the backend development server
 venv/bin/python src/manage.py runserver
