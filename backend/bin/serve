@@ -2,6 +2,7 @@
 
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
+source .env
 
 # start third party services
 docker-compose up -d
@@ -22,4 +23,4 @@ venv/bin/pip install -U pip setuptools wheel
 venv/bin/pip install -U -r requirements.txt
 
 # Start the backend development server
-venv/bin/python src/manage.py runserver
+venv/bin/python src/manage.py runserver "$BACKEND_PORT"

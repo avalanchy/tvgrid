@@ -2,9 +2,10 @@
 
 set -eo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
+source .env
 
 # Install the frontend npm packages
 npm install --no-package-lock
 
 # Start the frontend development server
-node_modules/.bin/ng serve
+node_modules/.bin/ng serve --port "$FRONTEND_PORT"
