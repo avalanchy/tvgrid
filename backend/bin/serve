@@ -5,13 +5,10 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 source .env
 
 # start third party services
-docker-compose up -d
+docker-compose up -d --build
 
 # stop third-party services when CTRL+C is pressed
-on_keyboard_interrupt() {
-  docker-compose stop
-}
-trap on_keyboard_interrupt SIGINT
+trap "docker-compose stop" SIGINT
 
 # Create Python virtualenv
 python3.8 -m venv venv
