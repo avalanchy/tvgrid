@@ -4,6 +4,7 @@ import os
 import requests
 from django.core.management.base import BaseCommand
 from django.db import connection
+from django.db.transaction import atomic
 
 from ...models import Title, Episode, Rating
 
@@ -51,13 +52,14 @@ class Command(BaseCommand):
             ("https://datasets.imdbws.com/title.episode.tsv.gz", Episode),
             ("https://datasets.imdbws.com/title.ratings.tsv.gz", Rating),
         ):
-            self.stdout.write(f"Downloading {url}...")
+            self.stdout.write(f"{model.__name__}: Downloading data dump {url}.")
             filepath = self.download_file(url)
 
-            self.stdout.write(f"Deleting all {model.__name__}s...")
-            model.objects.all().delete()
+            with atomic():
+                self.stdout.write(f"{model.__name__}: Deleting existing data.")
+                model.objects.all().delete()
 
-            self.stdout.write(f"Copying {filepath} to {model.__name__}...")
-            self.copy_to_table(filepath, model)
+                self.stdout.write(f"{model.__name__}: Loading data from {filepath}.")
+                self.copy_to_table(filepath, model)
 
         self.stdout.write("Done.")

@@ -20,4 +20,4 @@ venv/bin/python src/manage.py migrate
 venv/bin/python src/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', password='admin')"
 
 # fetch and load IMDb's data dump
-venv/bin/python src/manage.py imdb_dataload
+venv/bin/python src/manage.py imdb_reload_data
