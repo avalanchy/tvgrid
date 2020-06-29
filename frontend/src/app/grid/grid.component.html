@@ -1,1 +1,9 @@
-<p>grid works!</p>
+<ng-container *ngIf="title">
+  <h2>{{ title.primary_title }}</h2>
+  <h3>{{ title.episodes.length }} episode(s).</h3>
+  <ol>
+    <li *ngFor="let episode of title.episodes">
+      S{{ episode.season_number }}E{{ episode.episode_number}} {{ episode.average_rating }} {{ episode.primary_title}}
+    </li>
+  </ol>
+</ng-container>
