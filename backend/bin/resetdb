@@ -5,6 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 source .env
 
 # terminate all connections to the db
+# NOTE: Probably can be removed in favor of `dropdb --force` if postgres >=13 is now used https://www.postgresql.org/docs/13/app-dropdb.html
 docker-compose exec -T -e PGUSER="$POSTGRES_USER" postgres psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$POSTGRES_DB' AND pid <> pg_backend_pid()" || :
 
 # drop current database
