@@ -134,6 +134,7 @@ class Rating(models.Model):
         help_text="Alphanumeric identifier of episode.",
         primary_key=True,
         on_delete=models.DO_NOTHING,
+        db_constraint=False,  # IMDb dump contains nonexistent IDs
     )
 
     average_rating = models.FloatField(
